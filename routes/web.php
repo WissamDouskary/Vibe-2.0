@@ -1,11 +1,13 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\RouteBinding;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FriendsController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Friends;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Routing\RouteBinding;
 
 Route::get('/', function () {
     return view('welcome');
@@ -47,3 +49,13 @@ Route::post('/email/verification-notification', function (Request $request) {
 
     return back()->with('status', 'verification-link-sent');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
+// friends route:
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::post('/friends/send/{id}', [FriendsController::class, 'sendRequest']);
+    Route::post('/friends/accept/{id}', [FriendsController::class, 'acceptRequest']);
+    Route::get('/friends', [FriendsController::class, 'listFriends']);
+});
+
+Route::get('/requests', [FriendsController::class, 'showFriendRequests'])->name('Friends.requests');
