@@ -66,4 +66,21 @@ class User extends Authenticatable implements MustVerifyEmail
                     ->withPivot('status')
                     ->wherePivot('status', 'accepted');
     }
+
+    public function isFriendWith($userId)
+    {
+        return $this->sentFriendRequests()->where('receiver_id', $userId)->where('status', 'accepted')->exists() ||
+               $this->receivedFriendRequests()->where('sender_id', $userId)->where('status', 'accepted')->exists();
+    }
+
+    public function hasPendingRequestTo($userId)
+    {
+        return $this->sentFriendRequests()->where('receiver_id', $userId)->where('status', 'pending')->exists();
+    }
+
+    public function hasPendingRequestFrom($userId)
+    {
+        return $this->receivedFriendRequests()->where('sender_id', $userId)->where('status', 'pending')->exists();
+    }
+
 }

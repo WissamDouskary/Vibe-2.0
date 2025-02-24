@@ -55,6 +55,7 @@ Route::post('/email/verification-notification', function (Request $request) {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/friends/send/{id}', [FriendsController::class, 'sendRequest']);
     Route::post('/friends/accept/{id}', [FriendsController::class, 'acceptRequest']);
+    Route::post('/friends/refuse/{id}', [FriendsController::class, 'refuseRequest']);
     Route::get('/friends', [FriendsController::class, 'listFriends']);
 });
 

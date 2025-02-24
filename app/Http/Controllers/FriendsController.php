@@ -27,4 +27,28 @@ class FriendsController extends Controller
 
     return view('requestsList', compact('receivedRequests'));
     }
+
+    public function acceptRequest($id)
+    {
+    $friendRequest = auth()->user()->receivedFriendRequests()->where('id', $id)->first();
+    
+    if ($friendRequest && $friendRequest->status === 'pending') {
+        $friendRequest->update(['status' => 'accepted']);
+        return back()->with('success', 'Friend request accepted.');
+    }
+
+    return back()->with('error', 'This request is not valid or already handled.');
+    }
+
+    public function refuseRequest($id)
+    {
+    $friendRequest = auth()->user()->receivedFriendRequests()->where('id', $id)->first();
+    
+    if ($friendRequest && $friendRequest->status === 'pending') {
+        $friendRequest->update(['status' => 'declined']);
+        return back()->with('success', 'Friend request declined.');
+    }
+
+    return back()->with('error', 'This request is not valid or already handled.');
+    }
 }

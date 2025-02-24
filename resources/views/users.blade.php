@@ -51,15 +51,18 @@
                 </div>
             </div>
 
-            <form method="POST" action="/friends/send/{{$user->id}}">
-                @csrf
-                <button 
-                    type="submit" 
-                    class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring"
-                >
-                    Add Friend
-                </button>
-            </form>
+            @if(auth()->user()->isFriendWith($user->id))
+                <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full">
+                    Friend
+                </span>
+            @else
+                <form method="POST" action="/friends/send/{{$user->id}}">
+                    @csrf
+                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                        Add Friend
+                    </button>
+                </form>
+            @endif
         </li>
         @endforeach
     </ul>
