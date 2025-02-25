@@ -3,17 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FriendsController extends Controller
 {
-    public function sendRequest($id){
-        if(auth()->user()->friends()->where('receiver_id', $id)->exists()){
-            return back()->with('error', 'you have send invite to this user before!');
+    
+    public function index()
+    {
+        $friendslist = Auth::user()->friends()->get();
+    
+        return view('friends', compact('friendslist'));
+    }
+    
+    public function sendRequest($id)
+    {
+        if (Auth::user()->hasPendingRequestTo($id)) {
+            return back()->with('error', 'You already sent a friend request to this user.');
         }
-
-        auth()->user()->Friends()->attach($id, ['status' => 'pending']);
-
-        return back()->with('success', 'you have send friend request success, wait for accept it!');
+    
+        Auth::user()->sentFriendRequests()->create([
+            'receiver_id' => $id,
+            'status' => 'pending',
+        ]);
+    
+        return back()->with('success', 'Friend request sent successfully!');
     }
 
     public function showFriendRequests(){

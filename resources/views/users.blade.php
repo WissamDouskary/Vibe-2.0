@@ -51,16 +51,14 @@
                 </div>
             </div>
 
-            @if(auth()->user()->isFriendWith($user->id))
-                <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full">
-                    Friend
-                </span>
+            @if (auth()->user()->hasPendingRequestTo($user->id))
+                <button class="bg-gray-400 text-white px-4 py-2 rounded">Request Sent</button>
+            @elseif (auth()->user()->isFriendWith($user->id))
+                <button disabled class="bg-green-500 text-white px-4 py-2 rounded-full">Friends</button>
             @else
                 <form method="POST" action="/friends/send/{{$user->id}}">
                     @csrf
-                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
-                        Add Friend
-                    </button>
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Add Friend</button>
                 </form>
             @endif
         </li>

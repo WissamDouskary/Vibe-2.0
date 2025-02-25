@@ -62,20 +62,26 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function friends()
     {
-        return $this->belongsToMany(User::class, 'friends', 'sender_id', 'receiver_id')
-                    ->withPivot('status')
-                    ->wherePivot('status', 'accepted');
+        return User::whereHas('sentFriendRequests', function ($query) {
+            $query->where('receiver_id', auth()->id())->where('status', 'accepted');
+        })
+        ->orWhereHas('receivedFriendRequests', function ($query) {
+            $query->where('sender_id', auth()->id())->where('status', 'accepted');
+        });
+    }
+
+    public function hasPendingRequestTo($userId)
+    {
+    return $this->sentFriendRequests()
+                ->where('receiver_id', $userId)
+                ->where('status', 'pending')
+                ->exists();
     }
 
     public function isFriendWith($userId)
     {
         return $this->sentFriendRequests()->where('receiver_id', $userId)->where('status', 'accepted')->exists() ||
                $this->receivedFriendRequests()->where('sender_id', $userId)->where('status', 'accepted')->exists();
-    }
-
-    public function hasPendingRequestTo($userId)
-    {
-        return $this->sentFriendRequests()->where('receiver_id', $userId)->where('status', 'pending')->exists();
     }
 
     public function hasPendingRequestFrom($userId)
