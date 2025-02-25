@@ -7,7 +7,11 @@
 
     <!-- User List -->
     <ul class="space-y-6 px-4 mt-6">
-        
+        @unless (count($receivedRequests) != 0)
+        <li class="flex items-center justify-between bg-white dark:bg-gray-800 p-4 rounded-lg shadow text-white">
+            There is no friends Requests
+        </li>
+        @else
         @foreach($receivedRequests as $user)
         <li class="flex items-center justify-between bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
             <div class="flex items-center gap-4">
@@ -57,5 +61,6 @@
             </div>
         </li>
         @endforeach
+        @endunless
     </ul>
 </x-app-layout>

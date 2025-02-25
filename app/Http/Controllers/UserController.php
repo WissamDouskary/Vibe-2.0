@@ -25,7 +25,7 @@ Class UserController extends Controller{
         ->orWhere('fullname', 'LIKE', "%{$query}%")
         ->get();
 
-        return view('/users', compact('listusers'));
+        return view('users', compact('listusers'));
     }
 
     public function show($id){

@@ -45,6 +45,10 @@
                             {{ __('Friends Requests') }}
                         </x-dropdown-link>
 
+                        <x-dropdown-link :href="route('Friends.list')">
+                            {{ __('Friends') }}
+                        </x-dropdown-link>
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

@@ -59,4 +59,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/friends', [FriendsController::class, 'listFriends']);
 });
 
-Route::get('/requests', [FriendsController::class, 'showFriendRequests'])->name('Friends.requests');
+Route::get('/requests', [FriendsController::class, 'showFriendRequests'])->name('Friends.requests')->middleware('auth');
+Route::get('/Friends', [FriendsController::class, 'index'])->name('Friends.list')->middleware('auth');
