@@ -49,6 +49,10 @@
                             {{ __('Friends') }}
                         </x-dropdown-link>
 
+                        <x-dropdown-link :href="route('post.create')">
+                            {{ __('Create Post') }}
+                        </x-dropdown-link>
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

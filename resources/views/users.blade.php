@@ -52,15 +52,15 @@
             </div>
 
             @if (auth()->user()->hasPendingRequestTo($user->id))
-                <button class="bg-gray-400 text-white px-4 py-2 rounded">Request Sent</button>
-            @elseif (auth()->user()->isFriendWith($user->id))
-                <button disabled class="bg-green-500 text-white px-4 py-2 rounded-full">Friends</button>
-            @else
-                <form method="POST" action="/friends/send/{{$user->id}}">
-                    @csrf
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Add Friend</button>
-                </form>
-            @endif
+            <button disabled class="bg-gray-400 text-white px-4 py-2 rounded-full">Request Sent</button>
+                @elseif (auth()->user()->isFriendWith($user->id))
+            <button disabled class="bg-green-500 text-white px-4 py-2 rounded-full">Friends</button>
+                @else
+            <form method="POST" action="/friends/send/{{$user->id}}">
+                @csrf
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Add Friend</button>
+            </form>
+                @endif
         </li>
         @endforeach
     </ul>
