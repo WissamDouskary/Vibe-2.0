@@ -1,13 +1,14 @@
 <?php
 
+use App\Models\Friends;
 use Illuminate\Http\Request;
 use Illuminate\Routing\RouteBinding;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FriendsController;
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
-use App\Models\Friends;
+use App\Http\Controllers\CommentsController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 Route::get('/', function () {
@@ -63,3 +64,6 @@ Route::get('/Friends', [FriendsController::class, 'index'])->name('Friends.list'
 // post route
 Route::get('/Post/Create', [PostController::class, 'index'])->name('post.create');
 Route::post('/post/store', [PostController::class, 'store'])->name('post.store');
+
+// comments
+Route::post('/posts/{post}/comments', [CommentsController::class, 'store'])->name('comments.store');
