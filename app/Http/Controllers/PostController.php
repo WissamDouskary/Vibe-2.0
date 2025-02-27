@@ -15,7 +15,7 @@ class PostController extends Controller
     public function store(Request $request){
         $request->validate([
             'post_title' => 'required|max:255',
-            'post_photo' => 'image|required|max:10240|nullable',
+            'post_photo' => 'image|max:10240|nullable',
         ]);
 
         $imagepath = $request->hasFile('post_photo') ? $request->file('post_photo')->storeAs('uploads' , $request->file('post_photo')->getClientOriginalName() , 'public') : null;
@@ -31,7 +31,12 @@ class PostController extends Controller
 
     public function getposts(){
         $friends = auth()->user()->friends()->pluck('id');
-        $posts = Post::whereIn('user_id', $friends)->latest('created_at')->get();
-        dd($posts);
+
+        $posts = Post::whereIn('user_id', $friends)
+        ->with('user')
+        ->latest('created_at')
+        ->get();
+
+        return view('dashboard', compact('posts'));
     }
 }
