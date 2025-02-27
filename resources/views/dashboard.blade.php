@@ -105,6 +105,9 @@
                             <span class="text-gray-700 dark:text-gray-300">Like</span>
                         </button>
                         <button class="toggle-comments flex items-center justify-center px-4 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 w-1/2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-gray-500 dark:text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd" />
+                            </svg>
                             <span class="text-gray-700 dark:text-gray-300">Comments</span>
                         </button>
                     </div>
@@ -122,8 +125,8 @@
 
                         <form action="{{ route('comments.store', $post) }}" method="POST" class="mt-4">
                             @csrf
-                            <textarea name="content" class="w-full p-2 border rounded-md focus:outline-none" rows="2" placeholder="Write a comment..."></textarea>
-                            <button type="submit" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md">Post</button>
+                            <textarea name="content" class="block mt-2 w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:ring focus:ring-blue-200 dark:focus:ring-blue-800 focus:ring-opacity-50 transition" rows="2" placeholder="Write a comment..."></textarea>
+                            <button type="submit" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-full">Post</button>
                         </form>
                     </div>
                 </div>

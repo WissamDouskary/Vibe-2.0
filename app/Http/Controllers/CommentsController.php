@@ -35,7 +35,7 @@ class CommentsController extends Controller
             'content' => $request->content,
         ]);
 
-        return back()->with('success', 'Commentaire ajouté avec succès !');
+        return back()->with('success', 'comment added!');
     }
 
     /**
