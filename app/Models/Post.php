@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -15,5 +16,15 @@ class Post extends Model
 
     public function comments(){
         return $this->hasMany(Comments::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function UserAlreadyLiked()
+    {
+        return $this->likes()->where('user_id', Auth::id())->exists();
     }
 }

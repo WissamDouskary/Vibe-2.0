@@ -4,6 +4,7 @@ use App\Models\Friends;
 use Illuminate\Http\Request;
 use Illuminate\Routing\RouteBinding;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FriendsController;
@@ -67,3 +68,6 @@ Route::post('/post/store', [PostController::class, 'store'])->name('post.store')
 
 // comments
 Route::post('/posts/{post}/comments', [CommentsController::class, 'store'])->name('comments.store');
+
+// likes
+Route::post('/post/{id}/like', [LikeController::class, 'toggleLike'])->name('post.like');
