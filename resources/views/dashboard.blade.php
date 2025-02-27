@@ -104,16 +104,40 @@
                             </svg>
                             <span class="text-gray-700 dark:text-gray-300">Like</span>
                         </button>
-                        <button class="flex items-center justify-center px-4 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 w-1/2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-gray-500 dark:text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd" />
-                            </svg>
-                            <span class="text-gray-700 dark:text-gray-300">Comment</span>
+                        <button class="toggle-comments flex items-center justify-center px-4 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 w-1/2">
+                            <span class="text-gray-700 dark:text-gray-300">Comments</span>
                         </button>
+                    </div>
+
+                    <!-- Comments Section -->
+                    <div class="comments-section hidden mt-4">
+                        <h4 class="text-gray-700 dark:text-gray-300 font-semibold">Comments</h4>
+                        <div class="mt-2 space-y-3">
+                            @foreach ($post->comments as $comment)
+                            <div class="p-3 bg-gray-100 dark:bg-gray-700 rounded-md">
+                                <p class="text-gray-900 dark:text-gray-100"><strong>{{ $comment->user->fullname }}</strong>: {{ $comment->content }}</p>
+                            </div>
+                            @endforeach
+                        </div>
+
+                        <form action="{{ route('comments.store', $post) }}" method="POST" class="mt-4">
+                            @csrf
+                            <textarea name="content" class="w-full p-2 border rounded-md focus:outline-none" rows="2" placeholder="Write a comment..."></textarea>
+                            <button type="submit" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md">Post</button>
+                        </form>
                     </div>
                 </div>
             </div>
             @endforeach
         </div>
     </div>
+
+    <script>
+            document.querySelectorAll(".toggle-comments").forEach(button => {
+                button.addEventListener("click", function () {
+                    let commentsSection = this.closest(".p-4").querySelector(".comments-section");
+                    commentsSection.classList.toggle("hidden");
+                });
+            });
+    </script>
 </x-app-layout>
