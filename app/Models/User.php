@@ -101,4 +101,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->receivedFriendRequests()->where('sender_id', $userId)->where('status', 'pending')->exists();
     }
 
+    // post methods 
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
 }

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('post_title');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('post_photo')->nullable();
             $table->timestamps();
         });
@@ -21,10 +22,10 @@ return new class extends Migration
 
     public function down(): void
     {
-    Schema::table('posts', function (Blueprint $table) {
-        $table->dropForeign(['user_id']);
-    });
-    
-    Schema::dropIfExists('posts');
+        Schema::table('posts', function (Blueprint $table) {
+            $table->dropConstrainedForeignId('user_id');
+        });
+
+        Schema::dropIfExists('posts');
     }
 };
