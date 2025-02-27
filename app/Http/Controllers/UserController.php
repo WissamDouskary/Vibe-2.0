@@ -32,4 +32,5 @@ Class UserController extends Controller{
         $user = User::find($id);
         return view('user', compact('user'));
     }
+
 }

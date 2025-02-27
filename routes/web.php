@@ -57,7 +57,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/friends/send/{id}', [FriendsController::class, 'sendRequest']);
     Route::post('/friends/accept/{id}', [FriendsController::class, 'acceptRequest']);
     Route::post('/friends/refuse/{id}', [FriendsController::class, 'refuseRequest']);
-    Route::get('/friends', [FriendsController::class, 'listFriends']);
 });
 
 Route::get('/requests', [FriendsController::class, 'showFriendRequests'])->name('Friends.requests')->middleware('auth');
