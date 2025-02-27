@@ -12,15 +12,6 @@ use App\Http\Requests\UpdateCommentsRequest;
 class CommentsController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request, Post $post)
@@ -39,23 +30,15 @@ class CommentsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateCommentsRequest $request, Comments $comments)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Comment $comment)
+    public function destroy(Comments $comment)
     {
         if (Auth::id() !== $comment->user_id) {
-            return back()->with('error', 'Action non autorisée.');
+            return back()->with('error', "you can't delete comment");
         }
 
         $comment->delete();
-        return back()->with('success', 'Commentaire supprimé.');
+        return back()->with('success', 'Comment deleted');
     }
 }
