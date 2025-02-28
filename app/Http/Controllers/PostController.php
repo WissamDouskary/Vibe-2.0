@@ -63,6 +63,14 @@ class PostController extends Controller
         return redirect()->route('posts.index')->with('success', 'Post updated successfully!');
     }
 
+    public function destroy($id)
+    {
+    $post = Post::findOrFail($id);
+    $post->delete();
+
+    return redirect()->route('posts.index')->with('success', 'Post deleted successfully!');
+    }
+
     public function getposts(){
         $friends = auth()->user()->friends()->pluck('id');
 
