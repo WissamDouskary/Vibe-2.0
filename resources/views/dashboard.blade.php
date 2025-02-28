@@ -60,7 +60,7 @@
                                 alt="" 
                                 class="h-10 w-10 rounded-full">
                             <div>
-                                <h3 class="font-semibold text-gray-900 dark:text-white">{{$post->user->fullname}}</h3>
+                                <a href="/users/{{$post->user->id}}"><h3 class="font-semibold text-gray-900 dark:text-white">{{$post->user->fullname}}</h3></a>
                                 <p class="text-xs text-gray-500 dark:text-gray-400">{{$post->created_at->diffForHumans()}}</p> 
                             </div>
                         </div>

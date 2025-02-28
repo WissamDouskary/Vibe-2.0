@@ -1,6 +1,7 @@
 <?php 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,11 @@ Class UserController extends Controller{
 
     public function show($id){
         $user = User::find($id);
-        return view('user', compact('user'));
+        $posts = Post::where('user_id', $id)
+                ->with('user')
+                ->latest('created_at')
+                ->get();
+        return view('user', compact('user', 'posts'));
     }
 
 }

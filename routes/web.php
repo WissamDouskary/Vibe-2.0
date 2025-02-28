@@ -24,6 +24,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+Route::get('/Myposts', [PostController::class, 'show'])->name('posts.index');
+Route::get('/posts/{post_id}/edit', [PostController::class, 'edit'])->name('posts.edit');
+Route::patch('/posts/{post_id}', [PostController::class, 'update'])->name('posts.update');
+Route::delete('/posts/{post_id}', [PostController::class, 'destroy'])->name('posts.destroy');
+
 Route::get('/users', [UserController::class, 'getAllUsers'])
 ->middleware(['auth', 'verified'])
 ->name('users');
