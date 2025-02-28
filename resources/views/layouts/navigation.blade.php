@@ -53,6 +53,10 @@
                             {{ __('Create Post') }}
                         </x-dropdown-link>
 
+                        <x-dropdown-link :href="route('posts.index')">
+                            {{ __('My Posts') }}
+                        </x-dropdown-link>
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
