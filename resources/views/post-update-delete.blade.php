@@ -47,14 +47,11 @@
                                 <!-- Post Image with overlay for title -->
                                 <div class="relative">
                                     <img src="{{ asset('storage/' . $post->post_photo) }}" alt="{{ $post->post_title }}" class="w-full h-52 object-cover">
-                                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3">
-                                        <h3 class="font-semibold text-white text-lg">{{ $post->post_title }}</h3>
-                                    </div>
                                 </div>
 
                                 <div class="p-4">
                                     <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-3 mb-4 h-16">
-                                        {{ Str::limit($post->content, 120) }}
+                                        {{ $post->post_title }}
                                     </p>
 
                                     <div class="flex justify-between items-center mt-4 pt-3 border-t border-gray-100 dark:border-gray-700">
