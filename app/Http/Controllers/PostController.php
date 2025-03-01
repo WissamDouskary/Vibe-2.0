@@ -26,7 +26,7 @@ class PostController extends Controller
             'post_photo' => 'image|max:10240|nullable',
         ]);
 
-        $imagepath = $request->hasFile('post_photo') ? $request->file('post_photo')->storeAs('uploads' , $request->file('post_photo')->getClientOriginalName() , 'public') : null;
+        $imagepath = $request->hasFile('post_photo') ? $request->file('post_photo')->storeAs('posts' , $request->file('post_photo')->getClientOriginalName() , 'public') : null;
 
         $post = Post::create([
             'post_title' => $request->post_title,
@@ -57,7 +57,6 @@ class PostController extends Controller
         }
 
         $post->post_title = $request->post_title;
-        $post->post_title = $request->post_title;
         $post->save();
 
         return redirect()->route('posts.index')->with('success', 'Post updated successfully!');
@@ -65,10 +64,10 @@ class PostController extends Controller
 
     public function destroy($id)
     {
-    $post = Post::findOrFail($id);
-    $post->delete();
+        $post = Post::findOrFail($id);
+        $post->delete();
 
-    return redirect()->route('posts.index')->with('success', 'Post deleted successfully!');
+        return redirect()->route('posts.index')->with('success', 'Post deleted successfully!');
     }
 
     public function getposts(){
